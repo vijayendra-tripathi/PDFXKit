@@ -102,13 +102,12 @@ doing. If you are unsure, please use CocoaPods or Carthage instead.
 First, build the PDFXKit framework:
 
 * Clone `git@github.com:PSPDFKit/PDFXKit.git`
-* Replace `COCOAPODS_KEY` with your key and download the following the fat frameworks from here: https://customers.pspdfkit.com/cocoapods/COCOAPODS_KEY/pspdfkit/9.2.1.zip
-* Extract the zip file you downloaded and copy `PSPDFKit.framework` and `PSPDFKitUI.framework` into `PDFXKit/Frameworks`
+* Copy `PSPDFKit.xcframework` and `PSPDFKitUI.xcframework` into `PDFXKit/Frameworks`
 * Open the terminal and `cd` into the `PDFXKit` directory
 * Run `rake compile`
 
-You should now have the `PDFXFKit.framework` in the `Build` folder. Next, add
-the `PSPDFKit.framework`, `PSPDFKitUI.framework`, and `PDFXKit.framework` to your project:
+You should now have the `PDFXFKit.xcframework` in the `Build` folder. Next, add
+the `PSPDFKit.xcframework`, `PSPDFKitUI.xcframework`, and `PDFXKit.xcframework` to your project:
 
 * Follow the [*Getting Started*](https://pspdfkit.com/guides/ios/current/getting-started/integrating-pspdfkit/) instructions for PSPDFKit.
 
@@ -167,19 +166,19 @@ look at the headers, all unimplemented or only partially implemented symbols are
 annotated with the `PDFX_NOT_IMPLEMENTED_PRIORITY_...` and
 `PDFX_PARTIALLY_IMPLEMENTED_PRIORITY_...` macros.
 
-## Contributing
-
-If you want to work on PDFXKit, perform the following steps:
+## Run the Example Project
 
 * Clone `git@github.com:PSPDFKit/PDFXKit.git`
-* Replace `COCOAPODS_KEY` with your key and download the following the fat frameworks from here: https://customers.pspdfkit.com/cocoapods/COCOAPODS_KEY/pspdfkit/9.2.1.zip
-* Extract the zip file you downloaded and copy `PSPDFKit.framework` and `PSPDFKitUI.framework` into `PDFXKit/Frameworks`
-* Open `PDFXKit.xcodeproj` in Xcode
-* Build & Run `PDFXKitExample` (iOS)
+* Copy `PSPDFKit.xcframework` and `PSPDFKitUI.xcframework` into `PDFXKit/Frameworks`
+* Run `rake compile` to create the `PDFXKit.xcframework`
+* Open `Example/PDFXKitExample.xcodeproj` in Xcode
+* Build & Run `PDFXKitExample`
+
+## Contributing
 
 Please [sign our CLA agreement](https://pspdfkit.com/guides/web/current/miscellaneous/contributing/) so we can accept your pull requests.
 
-Technical notes:
+## Technical notes
 
 * All PDFXKit source files live in the `Sources` directory, no nesting.
 

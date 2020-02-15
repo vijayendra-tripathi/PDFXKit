@@ -52,9 +52,9 @@ VERBOSE = ENV['verbose'] || false
 # ------------------------------------------------------------- Constants ------
 
 XCODE_FLAGS = "-configuration Release -scheme PDFXKit archive SKIP_INSTALL=NO"
-ARCHIVE_PATH_SIMULATOR = "\"#{DIRECTORY}\"/Archives/PDFXKit.framework-iphonesimulator.xcarchive"
-ARCHIVE_PATH_DEVICE = "\"#{DIRECTORY}\"/Archives/PDFXKit.framework-iphoneos.xcarchive"
-ARCHIVE_PATH_MAC_CATALYST = "\"#{DIRECTORY}\"/Archives/PDFXKit.framework-catalyst.xcarchive"
+ARCHIVE_PATH_SIMULATOR = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-iphonesimulator.xcarchive"
+ARCHIVE_PATH_DEVICE = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-iphoneos.xcarchive"
+ARCHIVE_PATH_MAC_CATALYST = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-catalyst.xcarchive"
 
 # ---------------------------------------------------------------- Colors ------
 
@@ -77,14 +77,14 @@ WARNING = YELLOW + "Warning:" + RESET
 
 desc "Check prerequisites"
 task :check do
-  tell "Checking whether PSPDFKit.xcframework present"
+  tell "Checking whether PSPDFKit.xcframework is present"
   assert File.directory?("Frameworks/PSPDFKit.xcframework"), """
     #{ERROR} couldn't find #{BOLD}PSPDFKit.xcframework#{RESET}. Please download the
     PSPDFKit framework and copy it into the #{BOLD}Frameworks/#{RESET} folder.
     https://pspdfkit.com
   """
 
-  tell "Checking whether PSPDFKitUI.xcframework present"
+  tell "Checking whether PSPDFKitUI.xcframework is present"
   assert File.directory?("Frameworks/PSPDFKitUI.xcframework"), """
     #{ERROR} couldn't find #{BOLD}PSPDFKitUI.framework#{RESET}. Please download the
     PSPDFKit framework and copy it into the #{BOLD}Frameworks/#{RESET} folder.

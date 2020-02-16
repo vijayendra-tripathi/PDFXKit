@@ -52,9 +52,10 @@ VERBOSE = ENV['verbose'] || false
 # ------------------------------------------------------------- Constants ------
 
 XCODE_FLAGS = "-configuration Release -scheme PDFXKit archive SKIP_INSTALL=NO"
-ARCHIVE_PATH_SIMULATOR = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-iphonesimulator.xcarchive"
-ARCHIVE_PATH_DEVICE = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-iphoneos.xcarchive"
-ARCHIVE_PATH_MAC_CATALYST = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-catalyst.xcarchive"
+ARCHIVE_PATH_SIMULATOR = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-ios-x86_64-simulator.xcarchive"
+ARCHIVE_PATH_DEVICE = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-ios-arm64.xcarchive"
+ARCHIVE_PATH_MAC_CATALYST = "\"#{DIRECTORY}\"/Xcode/Archives/PDFXKit.framework-ios-x86_64-maccatalyst.xcarchive"
+DSYMS_PATH = "\"#{DIRECTORY}\"/PDFXKit-dSYMs"
 
 # ---------------------------------------------------------------- Colors ------
 
@@ -112,9 +113,13 @@ end
 
 desc "Creating the PDFXKit XCFramework"
 task :compile => ['compile:simulator', 'compile:device', 'compile:catalyst'] do
-  # TODO: also create universal dSYM file (either by stripping after lipo or
-  # combining both dSYM files).
-  tell "Creating PDFXKit XCFramework (universal)"
+  tell "Copying dSYMs"
+  run "rm -rf #{DSYMS_PATH}"
+  run "mkdir #{DSYMS_PATH}"
+  run "cp -r #{ARCHIVE_PATH_SIMULATOR}/dSYMs/PDFXKit.framework.dSYM #{DSYMS_PATH}/PDFXKit.framework.ios-x86_64-simulator.dSYM"
+  run "cp -r #{ARCHIVE_PATH_DEVICE}/dSYMs/PDFXKit.framework.dSYM #{DSYMS_PATH}/PDFXKit.framework.ios-arm64.dSYM"
+  run "cp -r #{ARCHIVE_PATH_MAC_CATALYST}/dSYMs/PDFXKit.framework.dSYM #{DSYMS_PATH}/PDFXKit.framework.ios-x86_64-maccatalyst.dSYM"
+  tell "Creating the PDFXKit XCFramework"
   run "rm -rf #{DIRECTORY}/PDFXKit.xcframework"
   run "xcodebuild -create-xcframework -framework #{ARCHIVE_PATH_SIMULATOR}/Products/Library/Frameworks/PDFXKit.framework -framework #{ARCHIVE_PATH_DEVICE}/Products/Library/Frameworks/PDFXKit.framework -framework #{ARCHIVE_PATH_MAC_CATALYST}/Products/Library/Frameworks/PDFXKit.framework -output #{DIRECTORY}/PDFXKit.xcframework"
 end
